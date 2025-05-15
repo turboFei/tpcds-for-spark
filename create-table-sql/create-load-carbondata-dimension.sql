@@ -1,4 +1,4 @@
-use ${env:TPCDS_DBNAME};
+-- use ${env:TPCDS_DBNAME};
 
 -- use tpcds;
 

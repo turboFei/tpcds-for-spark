@@ -66,7 +66,7 @@ do
     do
       echo "${file}_$times in progress"
       sysout="${QUERY_RESULT_BEELINE_DIR}/query${i}_$times.out"
-      ${SPARK_HOME}/bin/beeline -u $JDBC_URL -f "$file" >$sysout 2>&1
+      ${BEELINE} -u $JDBC_URL -f "$file" >$sysout 2>&1
       time=`cat $sysout | grep "seconds)" | cut -d "(" -f 2 | cut -d ")" -f 1 | cut -d " " -f 1`
       if [ "$time" = "" ];then
          echo -n "0," >> $result

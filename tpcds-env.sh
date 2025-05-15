@@ -31,6 +31,7 @@ export TPCDS_DBNAME=tpcds
 
 export SPARK_HOME=/home/hadoop/spark-2.1.0-bin-hadoop2.7
 
+export BEELINE=$SPARK_HOME/bin/beeline
 export JDBC_URL="jdbc:hive2://localhost:10009/$TPCDS_DBNAME;#spark.sql.shuffle.partitions=2;spark.executor.memory=5g;kyuubi.engine.share.level.subdomain=spark-tpcds"
 
 export QUERY_SQL_DIR=$bin/query_sql_$TPCDS_SCALE_FACTOR

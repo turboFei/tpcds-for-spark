@@ -1,4 +1,4 @@
-use ${env:TPCDS_DBNAME};
+-- use ${env:TPCDS_DBNAME};
 
 -- use tpcds;
 set spark.sql.parquet.compression.codec=gzip;
