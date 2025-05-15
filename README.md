@@ -39,10 +39,11 @@ cd ../..
 create-external-tables.sh
 ```
 
-## 6. Create Partitioned Tables and Format/Compress Fact Tables
+## 6. Create Partitioned Tables and Format/Compress Fact Tables with Spark-SQL or Beeline
 
 ```shell
 create-parquet-partition-tables.sh
+# create-parquet-partition-tables-beeline.sh
 ```
 
 ## 7. Generate Query SQL
