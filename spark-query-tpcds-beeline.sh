@@ -66,7 +66,7 @@ do
     do
 	echo ${file}_$times 查询中
 	sysout="${QUERY_RESULT_BEELINE_DIR}/query${i}_$times.out"   
-        ${SPARK_HOME}/bin/beeline -u 'jdbc:hive2://hadoop712.lt.163.org:10010/tpcds;principal=hive/hadoop712.lt.163.org@TEST.AMBARI.NETEASE.COM;hive.server2.proxy.user=hzyaoqin' -f "$file" >$sysout 2>&1
+  ${SPARK_HOME}/bin/beeline -u $JDBC_URL -f "$file" >$sysout 2>&1
 	time=`cat $sysout | grep "seconds)" | cut -d "(" -f 2 | cut -d ")" -f 1 | cut -d " " -f 1`
 
         if [ "$time" = "" ];then

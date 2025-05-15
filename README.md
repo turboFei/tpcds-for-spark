@@ -11,9 +11,10 @@ vi tpcds-env.sh
 ## 2. 生成测试数据
 
 ```shell
+sudo apt-get install make flex bison byacc git g++-9 gcc-9
 cd tpcds-kit/tools
 make clean
-make
+make CC=gcc-9 OS=LINUX
 cd ../..
 ./gen-data.sh
 ```
