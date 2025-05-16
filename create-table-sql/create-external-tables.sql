@@ -627,6 +627,7 @@ create external table IF NOT EXISTS et_reason
     r_reason_desc             string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/reason'
 tblproperties ('serialization.null.format'='')
 ;
