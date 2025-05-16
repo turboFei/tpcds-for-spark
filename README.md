@@ -1,66 +1,75 @@
-# 执行步骤：
+# Execution Steps:
 
-## 1. 设置环境变量
+## 1. Set Environment Variables
+
+Edit the environment configuration file:
 ```shell
 vi tpcds-env.sh
 ```
-- 数据量
-- 环境变量
-- 设置数据生成节点```vi nodenum.sh```
+- Data size
+- Environment variables
+- Set data generation node by editing `nodenum.sh`
 
-## 2. 生成测试数据
+## 2. Generate Test Data
 
 ```shell
+sudo apt-get install make flex bison byacc git g++-9 gcc-9
 cd tpcds-kit/tools
 make clean
-make
+make CC=gcc-9 OS=LINUX
 cd ../..
 ./gen-data.sh
 ```
 
-## 3. 创建hdfs数据目录
+## 3. Create HDFS Data Directories
 
 ```shell
 ./hdfs-mkdirs.sh
 ```
 
-## 4. 上传数据到hdfs
+## 4. Upload Data to HDFS
 
 ```shell
 ./upload-data.sh
 ```
 
-## 5. 创建外部表
+## 5. Create External Tables
+
 ```shell
 create-external-tables.sh
 ```
 
-## 6. 创建对应的分区表、并对事实表进行格式化、压缩
+## 6. Create Partitioned Tables and Format/Compress Fact Tables with Spark-SQL or Beeline
 
 ```shell
 create-parquet-partition-tables.sh
+# create-parquet-partition-tables-beeline.sh
 ```
-## 7. 生成查询sql
+
+## 7. Generate Query SQL
 
 ```shell
 ./gen-sql.sh
 ```
 
-## 8. Spark Sql 方式执行测试
+## 8. Execute Tests Using Spark SQL
+
 ```shell
 ./spark-query-tpcds.sh
 ```
 
-## 9. Beeline方式执行测试
+## 9. Execute Tests Using Beeline
+
 ```shell
 ./spark-query-tpcds-beeline.sh
 ```
-注意需要先启动对应的thrift server
 
-## 10. 说明
+*Note: The corresponding Thrift server needs to be started beforehand.*
 
-当前tpcds-kit目录中的query_templates已为最新修改完成后的templates
-query_templates_modify目录为修改的sql语句,适配Spark
+## 10. Explanation
 
-原项目为 https://github.com/cloudera/impala-tpcds-kit
-本项目只为方便在Spark端测试，如有侵权，立刻删除。
+- The `query_templates` directory in `tpcds-kit` contains the latest modified SQL templates.
+- The `query_templates_modify` directory contains the modified SQL statements adapted for Spark.
+
+Original project: https://github.com/cloudera/impala-tpcds-kit  
+This project is intended to facilitate testing on Spark. If there is any copyright infringement, it will be removed immediately.

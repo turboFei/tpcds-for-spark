@@ -16,19 +16,18 @@ fi
 
 mkdir $QUERY_RESULT_DIR
 
-
-#unsupported sql ids
+# Unsupported SQL IDs
 #ids=(28 61 77 88 90)
 ids=()
 
-#skip ids
+# SQL IDs to skip
 ids2=()
 
-echo "-----------开始查询-----------"
-echo "-----------数据库为$TPCDS_DBNAME------------"
+echo "-----------Starting Query-----------"
+echo "-----------Database: $TPCDS_DBNAME------------"
 
-#exec sql
-for (( i=1;i<100;++i ))
+# Execute SQL queries
+for (( i=1; i<100; ++i ))
 do
     yes=1
     for j in ${ids[@]}
@@ -55,27 +54,26 @@ do
 
     file="$QUERY_SQL_DIR/query$i.sql"
     if [ ! -f $file ]; then
-        echo "$file is not exist!"
+        echo "$file does not exist!"
         exit 1
     fi
 
-    echo $file 查询中,每个查询进行三次，并取平均值作为最终测试结果
+    echo "$file in progress, each query is executed three times and average time is taken"
     result="$QUERY_RESULT_DIR/query.result"
     echo -n "query$i.sql," >> $result
-    for(( times=1;times<=1;times++))
+    for(( times=1;times<=3;times++))
     do
-	echo ${file}_$times 查询中
-	sysout="$QUERY_RESULT_DIR/query${i}_$times.out"    
-	$SPARK_HOME/bin/spark-sql --database $TPCDS_DBNAME --name ${file}_$times -f "$file" --silent > $sysout 2>&1
-    	time=`cat $sysout | grep "Time taken:" | grep "Driver" | awk -F 'Time taken:' '{print $2}' | awk -F ' ' '{print $1}'`
+      echo "${file}_$times in progress"
+      sysout="$QUERY_RESULT_DIR/query${i}_$times.out"
+      $SPARK_HOME/bin/spark-sql $@ --database $TPCDS_DBNAME --name ${file}_$times -f "$file" --silent > $sysout 2>&1
+      time=`cat $sysout | grep "Time taken:" | grep "Driver" | awk -F 'Time taken:' '{print $2}' | awk -F ' ' '{print $1}'`
 
-        if [ "$time" = "" ];then
-	   echo -n "0," >> $result
-	else
- 	   echo -n "$time," >> $result
-	fi 
-
-    done 
+      if [ "$time" = "" ]; then
+          echo -n "0," >> $result
+      else
+          echo -n "$time," >> $result
+      fi
+    done
     echo "" >> $result
 done
 

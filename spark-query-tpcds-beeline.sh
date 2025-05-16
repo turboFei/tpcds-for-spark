@@ -24,8 +24,8 @@ ids=()
 #ids2=(1 2 3 4 5 6 7 8 9 10 11 12 13 14)
 ids2=()
 
-echo "-----------开始查询-----------"
-echo "-----------数据库为$TPCDS_DBNAME------------"
+echo "-----------Starting Query-----------"
+echo "-----------Database: $TPCDS_DBNAME------------"
 
 #exec sql
 for (( i=1;i<100;++i ))
@@ -59,22 +59,20 @@ do
         exit 1
     fi
 
-    echo $file 查询中,每个查询进行三次，并取平均值作为最终测试结果
+    echo "$file in progress, each query is executed three times and average time is taken"
     result="${QUERY_RESULT_BEELINE_DIR}/query.result"
     echo -n "query$i.sql," >> $result
     for(( times=1;times<=3;times++))
     do
-	echo ${file}_$times 查询中
-	sysout="${QUERY_RESULT_BEELINE_DIR}/query${i}_$times.out"   
-        ${SPARK_HOME}/bin/beeline -u 'jdbc:hive2://hadoop712.lt.163.org:10010/tpcds;principal=hive/hadoop712.lt.163.org@TEST.AMBARI.NETEASE.COM;hive.server2.proxy.user=hzyaoqin' -f "$file" >$sysout 2>&1
-	time=`cat $sysout | grep "seconds)" | cut -d "(" -f 2 | cut -d ")" -f 1 | cut -d " " -f 1`
-
-        if [ "$time" = "" ];then
-	   echo -n "0," >> $result
-	else
- 	   echo -n "${time}," >> $result
-	fi 
-
+      echo "${file}_$times in progress"
+      sysout="${QUERY_RESULT_BEELINE_DIR}/query${i}_$times.out"
+      ${BEELINE} -u $JDBC_URL -f "$file" >$sysout 2>&1
+      time=`cat $sysout | grep "seconds)" | cut -d "(" -f 2 | cut -d ")" -f 1 | cut -d " " -f 1`
+      if [ "$time" = "" ];then
+         echo -n "0," >> $result
+      else
+         echo -n "${time}," >> $result
+      fi
     done 
     echo "" >> $result
 

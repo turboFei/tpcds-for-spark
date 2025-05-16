@@ -1,6 +1,6 @@
 -- use tpcds;
 
-use ${env:TPCDS_DBNAME};
+-- use ${env:TPCDS_DBNAME};
 
 set hive.exec.dynamic.partition=true;
 set hive.exec.dynamic.partition.mode=nonstrict;

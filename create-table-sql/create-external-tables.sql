@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS ${env:TPCDS_DBNAME};
 
 use ${env:TPCDS_DBNAME};
 
-
+drop table IF EXISTS et_store_sales;
 create external table IF NOT EXISTS et_store_sales
 (
   ss_sold_date_sk           bigint,
@@ -32,10 +32,12 @@ create external table IF NOT EXISTS et_store_sales
   ss_net_profit             decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/store_sales'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_store_returns;
 create external table IF NOT EXISTS et_store_returns
 (
     sr_returned_date_sk       bigint,
@@ -60,10 +62,12 @@ create external table IF NOT EXISTS et_store_returns
     sr_net_loss               decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/store_returns'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_catalog_sales;
 create external table IF NOT EXISTS et_catalog_sales
 (
     cs_sold_date_sk           bigint,
@@ -102,10 +106,12 @@ create external table IF NOT EXISTS et_catalog_sales
     cs_net_profit             decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/catalog_sales'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_catalog_returns;
 create external table IF NOT EXISTS et_catalog_returns
 (
     cr_returned_date_sk       bigint,
@@ -138,10 +144,12 @@ create external table IF NOT EXISTS et_catalog_returns
     cr_net_loss               decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/catalog_returns'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_web_sales;
 create external table IF NOT EXISTS et_web_sales
 (
     ws_sold_date_sk           bigint,
@@ -180,11 +188,13 @@ create external table IF NOT EXISTS et_web_sales
     ws_net_profit             decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/web_sales'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_web_returns;
 create external table IF NOT EXISTS et_web_returns
 (
     wr_returned_date_sk       bigint,
@@ -213,10 +223,12 @@ create external table IF NOT EXISTS et_web_returns
     wr_net_loss               decimal(7,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/web_returns'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_inventory;
 create external table IF NOT EXISTS et_inventory
 (
     inv_date_sk               bigint,
@@ -225,6 +237,7 @@ create external table IF NOT EXISTS et_inventory
     inv_quantity_on_hand      bigint
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/inventory'
 tblproperties ('serialization.null.format'='')
 ;
@@ -232,6 +245,7 @@ tblproperties ('serialization.null.format'='')
 
 
 --创建非事实表
+drop table IF EXISTS et_store;
 create external table IF NOT EXISTS et_store
 (
   s_store_sk                bigint,
@@ -265,10 +279,12 @@ create external table IF NOT EXISTS et_store
   s_tax_precentage          decimal(5,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/store'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_call_center;
 create external table IF NOT EXISTS et_call_center
 (
     cc_call_center_sk         bigint,
@@ -304,10 +320,12 @@ create external table IF NOT EXISTS et_call_center
     cc_tax_percentage         decimal(5,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/call_center'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_catalog_page;
 create external table IF NOT EXISTS et_catalog_page
 (
     cp_catalog_page_sk        bigint,
@@ -322,10 +340,12 @@ create external table IF NOT EXISTS et_catalog_page
     cp_type                   string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/catalog_page'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_web_site;
 create external table IF NOT EXISTS et_web_site
 (
     web_site_sk               bigint,
@@ -356,10 +376,12 @@ create external table IF NOT EXISTS et_web_site
     web_tax_percentage        decimal(5,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/web_site'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_web_page;
 create external table IF NOT EXISTS et_web_page
 (
     wp_web_page_sk            bigint,
@@ -378,11 +400,13 @@ create external table IF NOT EXISTS et_web_page
     wp_max_ad_count           bigint
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/web_page'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_warehouse;
 create external table IF NOT EXISTS et_warehouse
 (
     w_warehouse_sk            bigint,
@@ -401,10 +425,12 @@ create external table IF NOT EXISTS et_warehouse
     w_gmt_offset              decimal(5,2)
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/warehouse'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_customer;
 create external table IF NOT EXISTS et_customer
 (
     c_customer_sk             bigint,
@@ -427,10 +453,12 @@ create external table IF NOT EXISTS et_customer
     c_last_review_date        string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/customer'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_customer_address;
 create external table IF NOT EXISTS et_customer_address
 (
     ca_address_sk             bigint,
@@ -448,11 +476,13 @@ create external table IF NOT EXISTS et_customer_address
     ca_location_type          string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/customer_address'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_customer_demographics;
 create external table IF NOT EXISTS et_customer_demographics
 (
     cd_demo_sk                bigint,
@@ -466,11 +496,13 @@ create external table IF NOT EXISTS et_customer_demographics
     cd_dep_college_count      bigint
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/customer_demographics'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_date_dim;
 create external table IF NOT EXISTS et_date_dim
 (
     d_date_sk                 bigint,
@@ -503,11 +535,13 @@ create external table IF NOT EXISTS et_date_dim
     d_current_year            string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/date_dim'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_household_demographics;
 create external table IF NOT EXISTS et_household_demographics
 (
     hd_demo_sk                bigint,
@@ -517,11 +551,13 @@ create external table IF NOT EXISTS et_household_demographics
     hd_vehicle_count          bigint
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/household_demographics'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_item;
 create external table IF NOT EXISTS et_item
 (
     i_item_sk                 bigint,
@@ -548,10 +584,12 @@ create external table IF NOT EXISTS et_item
     i_product_name            string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/item'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_promotion;
 create external table IF NOT EXISTS et_promotion
 (
     p_promo_sk                bigint,
@@ -575,11 +613,13 @@ create external table IF NOT EXISTS et_promotion
     p_discount_active         string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/promotion'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_reason;
 create external table IF NOT EXISTS et_reason
 (
     r_reason_sk               bigint,
@@ -587,10 +627,12 @@ create external table IF NOT EXISTS et_reason
     r_reason_desc             string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/reason'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_ship_mode;
 create external table IF NOT EXISTS et_ship_mode
 (
     sm_ship_mode_sk           bigint,
@@ -601,11 +643,13 @@ create external table IF NOT EXISTS et_ship_mode
     sm_contract               string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/ship_mode'
 tblproperties ('serialization.null.format'='')
 ;
 
 
+drop table IF EXISTS et_time_dim;
 create external table IF NOT EXISTS et_time_dim
 (
     t_time_sk                 bigint,
@@ -620,10 +664,12 @@ create external table IF NOT EXISTS et_time_dim
     t_meal_time               string
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/time_dim'
 tblproperties ('serialization.null.format'='')
 ;
 
+drop table IF EXISTS et_income_band;
 create external table IF NOT EXISTS et_income_band
 (
     ib_income_band_sk         bigint,
@@ -631,6 +677,7 @@ create external table IF NOT EXISTS et_income_band
     ib_upper_bound            bigint
 )
 row format delimited fields terminated by '|'
+stored as textfile
 location '${env:FLATFILE_HDFS_ROOT}/income_band'
 tblproperties ('serialization.null.format'='')
 ;

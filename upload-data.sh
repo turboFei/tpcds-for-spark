@@ -15,6 +15,6 @@ do
  echo $tableName
 
  #file update to hdfs 
- hadoop fs -put -f $dataPath/$fileName ${FLATFILE_HDFS_ROOT}/$tableName   
+ $HADOOP_HOME/bin/hadoop fs -put -f $dataPath/$fileName ${FLATFILE_HDFS_ROOT}/$tableName
 done
 

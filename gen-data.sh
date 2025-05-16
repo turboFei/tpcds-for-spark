@@ -1,24 +1,24 @@
 #!/bin/bash
 bin=`dirname $0`
-bin=`cd $bin;pwd`
+bin=`cd $bin; pwd`
 
 source $bin/tpcds-env.sh
 
-# find out what our node number is
+# Determine the node number
 source $bin/nodenum.sh
 
-#生成数据集本地存放路径
+# Generate local storage path for the dataset
 LOCAL_DATA_PATH=${LOCAL_DATA_DIR}${NODENUM}
 echo $LOCAL_DATA_PATH
 
-if [ ! -d "$LOCAL_DATA_PATH" ];then  
+if [ ! -d "$LOCAL_DATA_PATH" ]; then
    mkdir $LOCAL_DATA_PATH
-fi 
+fi
 
 count=$DSDGEN_THREADS_PER_NODE
 start=(NODENUM-1)*$count+1
 
-# 分片并发生成各个表的数据
+# Concurrently generate data for each table slice
 end=$count+$start
 for (( c=$start; c<$end; c++ ))
 do
