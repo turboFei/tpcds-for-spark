@@ -36,7 +36,7 @@ export SPARK_HOME=/apache/releases/spark-3.5.0.0.2.0-bin-ebay
 export HADOOP_HOME=/apache/hadoop
 
 export BEELINE=/apache/kyuubi/bin/beeline
-export JDBC_URL="jdbc:hive2://kyuubi.hadoop.qa.ebay.com:10010/$TPCDS_DBNAME;ssl=true;principal=kyuubi/kyuubi.hadoop.qa.ebay.com@TESS.DEV.HADOOP.EBAY.COM#kyuubi.engine.share.level.subdomain=tpcds_celeborn;spark.binary.majorVersion=3.5.0;spark.celeborn.enabled=true;spark.shuffle.manager=org.apache.spark.shuffle.celeborn.SparkShuffleManager;spark.shuffle.sort.io.plugin.class=org.apache.spark.shuffle.celeborn.CelebornShuffleDataIO;spark.driver.memory=8g;spark.executor.memory=8g;spark.executor.cores=2;spark.sql.shuffle.partitions=1000"
+export JDBC_URL="jdbc:hive2://kyuubi.hadoop.qa.ebay.com:10010/$TPCDS_DBNAME;ssl=true;principal=kyuubi/kyuubi.hadoop.qa.ebay.com@TESS.DEV.HADOOP.EBAY.COM#kyuubi.engine.share.level.subdomain=tpcds_celeborn;spark.binary.majorVersion=3.5.0;spark.celeborn.enabled=true;spark.shuffle.manager=org.apache.spark.shuffle.celeborn.SparkShuffleManager;spark.shuffle.sort.io.plugin.class=org.apache.spark.shuffle.celeborn.CelebornShuffleDataIO;spark.driver.memory=8g;spark.executor.memory=8g;spark.executor.cores=2;spark.sql.shuffle.partitions=1000;spark.hadoop.hive.exec.dynamic.partition=true;spark.hadoop.hive.exec.dynamic.partition.mode=nonstrict;spark.hadoop.hive.exec.max.dynamic.partitions.pernode=2000;spark.hadoop.hive.exec.max.dynamic.partitions=2000;"
 # export JDBC_URL="jdbc:hive2://localhost:10009/$TPCDS_DBNAME;#spark.sql.shuffle.partitions=2;spark.executor.memory=5g;kyuubi.engine.share.level.subdomain=spark-tpcds"
 
 export QUERY_SQL_DIR=$bin/query_sql_$TPCDS_SCALE_FACTOR
