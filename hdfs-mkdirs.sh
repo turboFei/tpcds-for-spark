@@ -1,10 +1,9 @@
 #!/bin/bash
+set -e
 bin=`dirname $0`
 bin=`cd $bin;pwd`
 
 source $bin/tpcds-env.sh
-
-
 
 #mkdir the root dir of HDFS
 $HADOOP_HOME/bin/hadoop fs -test -e ${FLATFILE_HDFS_ROOT}

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source tpcds-env.sh
 
 if [ ! -d ${QUERY_SQL_DIR} ];then
@@ -59,10 +60,10 @@ do
         exit 1
     fi
 
-    echo "$file in progress, each query is executed three times and average time is taken"
+    echo "$file in progress, each query is executed ${QUERY_EXEC_TIMES} times and average time is taken"
     result="${QUERY_RESULT_BEELINE_DIR}/query.result"
     echo -n "query$i.sql," >> $result
-    for(( times=1;times<=3;times++))
+    for(( times=1;times<=${QUERY_EXEC_TIMES};times++))
     do
       echo "${file}_$times in progress"
       sysout="${QUERY_RESULT_BEELINE_DIR}/query${i}_$times.out"

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 bin=`dirname $0`
 bin=`cd $bin;pwd`
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 bin="$(cd "$(dirname "$0")";pwd)"
 source $bin/tpcds-env.sh
 
