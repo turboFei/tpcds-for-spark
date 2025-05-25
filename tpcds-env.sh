@@ -41,3 +41,5 @@ export JDBC_URL="jdbc:hive2://kyuubi.hadoop.qa.ebay.com:10010/$TPCDS_DBNAME;ssl=
 
 export QUERY_SQL_DIR=$bin/query_sql_$TPCDS_SCALE_FACTOR
 export QUERY_RESULT_DIR=$bin/query_result_$TPCDS_SCALE_FACTOR
+
+export QUERY_EXEC_TIMES=${QUERY_EXEC_TIMES:-3}
