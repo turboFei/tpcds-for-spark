@@ -2,6 +2,7 @@
 bin=`dirname $0`
 bin=`cd $bin;pwd`
 
+set -e
 source tpcds-env.sh
 
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source tpcds-env.sh
 
 if [ ! -d ${QUERY_SQL_DIR} ];then
